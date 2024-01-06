@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def main(inputs):
-    
+    plot_data()
     start_location = [45.372, -121.6972]
     storename, store_location = get_best_store()
 
@@ -55,4 +55,30 @@ def get_best_store():
     location = [45.371, -121.683]
     
     return storename, location
+
+def plot_data():
+    # get file path for data
+    data_name = "data\grocery_prices.xlsx"
+    # read dataframe from excel spreadsheet
+    data = pd.read_excel(data_name)
+    print(data)
+    # specify which columns we want to use for the 
+    cols = [0,1]
+    specific_data = data[data.columns[cols]]
+
+    print("specific columns")
+    print(specific_data)
+
+    # define the axes  of plot generated
+    x_axis = data["Food"]
+    y_axis = data["Costco"]
+    plt.bar(x_axis, y_axis, width=20)
+    plt.xlabel("Food")
+    plt.ylabel("Prices")
+
+    # show the plot
+    plt.show()
+
+
+
 
