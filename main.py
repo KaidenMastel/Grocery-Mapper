@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def main(inputs):
-    
-    start_location = [45.372, -121.6972]
-    storename, store_location = get_best_store()
+    plot_data()
+    start_location = [inputs['lat'], inputs['lon']] #[45.372, -121.6972]
+    item = inputs['item']
+    storename, store_location = get_best_store(item)
 
     # Create a folium map
     bounds = [start_location, store_location]
@@ -60,3 +61,30 @@ def get_best_store(item):
     
     return storename, location
 
+def get_center(start_location, store_location):
+    center_lat = (start_location[0] + store_location[0]) / 2
+    center_lon = (start_location[1] + store_location[1]) / 2
+    return [center_lat, center_lon]
+
+def plot_data():
+    # get file path for data
+    data_name = "data\grocery_prices.xlsx"
+    # read dataframe from excel spreadsheet
+    data = pd.read_excel(data_name)
+    print(data)
+    # specify which columns we want to use for the 
+    cols = [0,1]
+    specific_data = data[data.columns[cols]]
+
+    print("specific columns")
+    print(specific_data)
+
+    # define the axes  of plot generated
+    x_axis = data["Food"]
+    y_axis = data["Costco"]
+    plt.bar(x_axis, y_axis, width=20)
+    plt.xlabel("Food")
+    plt.ylabel("Prices")
+
+    # show the plot
+    plt.show()
