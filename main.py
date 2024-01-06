@@ -13,10 +13,11 @@ def main(inputs):
     # Add markers to map
 
     folium.Marker(
-        [45.372, -121.6972], popup="<i>Italic popup text</i>", tooltip="Click on Marker"
+        start_location, popup="<i>Your Location</i>", tooltip="You are here"
     ).add_to(m)
     folium.Marker(  # Marker with icon
         location=store_location,
+        popup="The best store found",
         tooltip=storename,
         icon=folium.Icon(color=inputs['color'], icon="info-sign"),
     ).add_to(m)
