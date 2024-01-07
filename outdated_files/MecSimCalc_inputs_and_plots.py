@@ -9,6 +9,7 @@ def main(inputs):
 
     # convert the input file to a dataframe
     df = msc.input_to_dataframe(input_file)
+    # define the specific columns we want plotted
     cols = [0, 1]
     df = df[df.columns[cols]]
     # covert the dataframe to an HTML table and generate a download link
