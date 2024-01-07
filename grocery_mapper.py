@@ -17,7 +17,6 @@ def main(inputs):
     best_of_each_store["Costco"] = find_closest_store(search(latitude, longitude, radius, "Costco"), latitude, longitude)
     best_of_each_store["Loblaws"] = find_closest_store(search(latitude, longitude, radius, "Loblaws"), latitude, longitude)
 
-    #print(data)
 
     input_file = inputs['file']
     df = msc.input_to_dataframe(input_file)
@@ -26,23 +25,16 @@ def main(inputs):
     cols = [1, 2, 3, 4]
     df = df[df.columns[cols]]
 
-    # for column in result:
-    #     #print(column)
-    #     print(result[column])
-
-    # print(data.iloc[0]['Costco'])
-
-    # 0 = Costco, 1 = Walmart, 2 = Safeway, 3 = Loblaws
-
     # set an arbitrary minimum pruce
     min_score = float("inf") #1000.0
     stores = ["Costco", "Walmart", "Safeway", "Loblaws"]
+    foods = {"Eggs": 0, "Chicken": 1, "Tomatoes": 2, "Rice": 3, "Bread": 4,
+                "Milk": 5, "Fish": 6, "Broccoli": 7, "Apples": 8}
     best_store = ""
     for store in stores:
         if best_of_each_store[store] == None:
             continue
-        print(best_of_each_store[store][1])
-        current_price = df.iloc[0][store]
+        current_price = df.iloc[foods[item]][store]
         current_price = current_price.item()
         current_score = distance_and_price_to_score(best_of_each_store[store][1], current_price)
         if  current_price < min_score:
@@ -204,18 +196,6 @@ def haversine(lat1, lon1, lat2, lon2):
     return distance
 
 def find_closest_store(json_list, lat_param, lon_param):
-    """
-    Find the JSON object with the smallest distance from specified latitude and longitude parameters
-    in the list of JSON objects.
-
-    Parameters:
-    - json_list: List of JSON objects with 'lat' and 'lon' fields.
-    - lat_param: Latitude parameter for distance calculation.
-    - lon_param: Longitude parameter for distance calculation.
-
-    Returns:
-    - closest_object: JSON object with the smallest distance.
-    """
     closest_object = None
     min_distance = float('inf')  # Initialize with a large value
 
