@@ -35,7 +35,7 @@ latitude = 53.5269
 longitude = -113.5
 
 # Specify the radius (in meters) for the search
-radius = 100000
+radius = 50000
 
 # Call the function to search for Walmart within the specified radius using Overpass API
 
@@ -134,4 +134,4 @@ for store in stores:
         min_score = current_score
         best_store = store
 
-print(best_store)
+print(best_of_each_store[best_store])
