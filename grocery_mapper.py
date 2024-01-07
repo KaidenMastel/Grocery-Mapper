@@ -45,9 +45,10 @@ def main(inputs):
         if  current_price < min_score:
             min_score = current_score
             best_store = store
+
     #create the map
     m = folium.Map(location=get_center(start_location, start_location),
-                   zoom_start=15, tiles=inputs['map_tile'])
+                   zoom_start=15, tiles='Open Street Map')
     
     #If no store was found, kill the program early
     if best_store == "":
@@ -71,7 +72,7 @@ def main(inputs):
         location=store_location,
         popup="The best store found",
         tooltip=storename,
-        icon=folium.Icon(color=inputs['color'], icon="info-sign"),
+        icon=folium.Icon("#ADD8E6", icon="info-sign"),
     ).add_to(m)
 
     m.fit_bounds(bounds)
@@ -79,7 +80,7 @@ def main(inputs):
     # Add line shape
     lat_lng_points = [start_location, store_location]
     folium.PolyLine(lat_lng_points,
-                    color=inputs['color'],
+                    color="#ADD8E6",
                     tooltip="PolyLine",
                     weight=5,  # line thickness
                     opacity=0.8  # transparency
@@ -91,7 +92,7 @@ def main(inputs):
         location=start_location,
         tooltip="Click on Circle",
         popup="Circle",
-        color=inputs['color'],
+        color="#ADD8E6",
         fill=False,
     ).add_to(m)
 
